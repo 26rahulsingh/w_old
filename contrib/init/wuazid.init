@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+#  wuazid The Wuazi Core server.
+#
+#
+# chkconfig: 345 80 20
+# description: wuazid
+# processname: wuazid
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+# you can override defaults in /etc/sysconfig/wuazid, see below
+if [ -f /etc/sysconfig/wuazid ]; then
+        . /etc/sysconfig/wuazid
+fi
+
+RETVAL=0
+
+prog=wuazid
+# you can override the lockfile via BITCOIND_LOCKFILE in /etc/sysconfig/wuazid
+lockfile=${BITCOIND_LOCKFILE-/var/lock/subsys/wuazid}
+
+# wuazid defaults to /usr/bin/wuazid, override with BITCOIND_BIN
+wuazid=${BITCOIND_BIN-/usr/bin/wuazid}
+
+# wuazid opts default to -disablewallet, override with BITCOIND_OPTS
+wuazid_opts=${BITCOIND_OPTS--disablewallet}
+
+start() {
+    echo -n $"Starting $prog: "
+    daemon $DAEMONOPTS $wuazid $wuazid_opts
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status $prog
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: service $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac

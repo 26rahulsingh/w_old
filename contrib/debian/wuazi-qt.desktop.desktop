@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Wuazi
+Comment=Wuazi P2P Cryptocurrency
+Exec=wuazi-qt %u
+Terminal=false
+Type=Application
+Icon=wuazi128
+MimeType=x-scheme-handler/wuazi;
+Categories=Office;Finance;
+Name[en_IN]=wuazi-qt.desktop

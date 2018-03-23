@@ -1,0 +1,22 @@
+[Unit]
+Description=Wuazi's distributed currency daemon
+After=network.target
+
+[Service]
+User=wuazicore
+Group=wuazicore
+
+Type=forking
+PIDFile=/var/lib/wuazid/wuazid.pid
+ExecStart=/usr/bin/wuazid -daemon -pid=/var/lib/wuazid/wuazid.pid \
+-conf=/etc/wuazicore/wuazi.conf -datadir=/var/lib/wuazid -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

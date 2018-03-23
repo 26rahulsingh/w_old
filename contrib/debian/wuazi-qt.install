@@ -1,0 +1,6 @@
+usr/local/bin/wuazi-qt usr/bin
+share/pixmaps/wuazi32.xpm usr/share/pixmaps
+share/pixmaps/wuazi16.xpm usr/share/pixmaps
+share/pixmaps/wuazi128.png usr/share/pixmaps
+debian/wuazi-qt.desktop usr/share/applications
+debian/wuazi-qt.protocol usr/share/kde4/services/
